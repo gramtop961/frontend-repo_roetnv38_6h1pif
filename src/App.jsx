@@ -1,28 +1,34 @@
-import { useState } from 'react'
+import Hero from './components/Hero';
+import ReelGallery from './components/ReelGallery';
+import About from './components/About';
+import Contact from './components/Contact';
 
-function App() {
-  const [count, setCount] = useState(0)
-
+function Navbar() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 flex items-center justify-center">
-      <div className="bg-white p-8 rounded-lg shadow-lg">
-        <h1 className="text-3xl font-bold text-gray-800 mb-4">
-          Vibe Coding Platform
-        </h1>
-        <p className="text-gray-600 mb-6">
-          Your AI-powered development environment
-        </p>
-        <div className="text-center">
-          <button
-            onClick={() => setCount(count + 1)}
-            className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded"
-          >
-            Count is {count}
-          </button>
-        </div>
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <a href="#home" className="text-sm font-semibold tracking-wide text-white">FILMMAKER</a>
+        <nav className="hidden items-center gap-6 text-sm text-neutral-300 sm:flex">
+          <a href="#work" className="transition hover:text-white">Work</a>
+          <a href="#about" className="transition hover:text-white">About</a>
+          <a href="#contact" className="transition hover:text-white">Contact</a>
+        </nav>
+        <a href="#contact" className="rounded-full border border-white/15 px-4 py-2 text-xs text-white/80 transition hover:bg-white/10">Hire</a>
       </div>
-    </div>
-  )
+    </header>
+  );
 }
 
-export default App
+export default function App() {
+  return (
+    <div className="min-h-screen bg-black font-['Inter',_ui-sans-serif]">
+      <Navbar />
+      <main>
+        <Hero />
+        <ReelGallery />
+        <About />
+        <Contact />
+      </main>
+    </div>
+  );
+}
