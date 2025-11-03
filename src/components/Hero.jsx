@@ -1,15 +1,55 @@
+import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import Spline from '@splinetool/react-spline';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 export default function Hero() {
+  const titleRef = useRef(null);
+  const subRef = useRef(null);
+  const ctaRef = useRef(null);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+
+    const ctx = gsap.context(() => {
+      // Parallax fade on scroll
+      gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: true,
+        },
+      })
+        .to(titleRef.current, { y: -40, opacity: 0.8, ease: 'none' }, 0)
+        .to(subRef.current, { y: -30, opacity: 0.85, ease: 'none' }, 0)
+        .to(ctaRef.current, { y: -20, opacity: 0.9, ease: 'none' }, 0);
+
+      // Gentle floating for hero copy
+      gsap.to([titleRef.current, subRef.current], {
+        y: 6,
+        repeat: -1,
+        yoyo: true,
+        duration: 3.2,
+        ease: 'sine.inOut',
+      });
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, []);
+
   return (
-    <section id="home" className="relative h-screen w-full overflow-hidden bg-black">
+    <section ref={sectionRef} id="home" className="relative h-screen w-full overflow-hidden bg-black">
       <div className="absolute inset-0">
         <Spline
-          scene="https://prod.spline.design/4Tf9WOIaWs6LOezG/scene.splinecode"
+          scene="https://prod.spline.design/UngO8SNLfLcyPG7O/scene.splinecode"
           style={{ width: '100%', height: '100%' }}
         />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/80" />
+        <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-black/20 via-black/40 to-black/80" />
       </div>
 
       <div className="relative z-10 mx-auto flex h-full max-w-7xl items-center px-6">
@@ -23,6 +63,7 @@ export default function Hero() {
             ATLAS FILM — Direction & Cinematography
           </motion.span>
           <motion.h1
+            ref={titleRef}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.05 }}
@@ -31,15 +72,17 @@ export default function Hero() {
             Motion built for impact
           </motion.h1>
           <motion.p
+            ref={subRef}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: 'easeOut', delay: 0.15 }}
             className="mt-4 max-w-2xl text-base leading-relaxed text-neutral-300 sm:text-lg"
           >
-            A modern portfolio for high‑energy, precision filmmaking—sleek, minimal, and performance‑driven.
+            A modern portfolio with a futuristic 3D grid—sleek, minimal, and performance‑driven.
           </motion.p>
 
           <motion.div
+            ref={ctaRef}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: 'easeOut', delay: 0.25 }}
