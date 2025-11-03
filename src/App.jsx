@@ -1,5 +1,7 @@
 import Hero from './components/Hero';
+import FeatureReel from './components/FeatureReel';
 import ReelGallery from './components/ReelGallery';
+import Clients from './components/Clients';
 import About from './components/About';
 import Contact from './components/Contact';
 
@@ -7,8 +9,9 @@ function Navbar() {
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-black/40 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
-        <a href="#home" className="text-sm font-semibold tracking-wide text-white">FILMMAKER</a>
+        <a href="#home" className="text-sm font-semibold tracking-wide text-white">ATLAS FILM</a>
         <nav className="hidden items-center gap-6 text-sm text-neutral-300 sm:flex">
+          <a href="#reel" className="transition hover:text-white">Reel</a>
           <a href="#work" className="transition hover:text-white">Work</a>
           <a href="#about" className="transition hover:text-white">About</a>
           <a href="#contact" className="transition hover:text-white">Contact</a>
@@ -25,7 +28,11 @@ export default function App() {
       <Navbar />
       <main>
         <Hero />
+        <div id="reel">
+          <FeatureReel />
+        </div>
         <ReelGallery />
+        <Clients />
         <About />
         <Contact />
       </main>
